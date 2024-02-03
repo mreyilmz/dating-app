@@ -1,0 +1,68 @@
+<nav
+  class="navbar bg-dark navbar-expand-lg bg-body-tertiary"
+  data-bs-theme="dark"
+>
+  <div class="container">
+    <a class="navbar-brand">Date Uygulaması</a>
+
+    <ul
+      class="navbar-nav me-auto mb-2 mb-lg-0"
+      *ngIf="accountService.currentUser$ | async"
+    >
+      <li class="nav-item">
+        <a class="nav-link" href="#">Eşleşmeler</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Listeler</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link">Mesajlar</a>
+      </li>
+      <li class="nav-item" (click)="logout()">
+        <a class="nav-link">Çıkış</a>
+      </li>
+    </ul>
+
+    <div
+      ngbDropdown
+      class="dropdown"
+      *ngIf="accountService.currentUser$ | async"
+    >
+      <a
+        ngbDropdownToggle
+        class="dropdown-toggle text-light text-decoration-none"
+        >Hoşgeldin</a
+      >
+      <div ngbDropdownMenu class="dropdown-menu">
+        <a ngbDropdownItem href="" class="dropdown-item">Profili Düzenle</a>
+        <a ngbDropdownItem href="" class="dropdown-item" (click)="logout()"
+          >Çıkış</a
+        >
+      </div>
+    </div>
+
+    <form
+      *ngIf="!(accountService.currentUser$ | async)"
+      class="d-flex"
+      #loginForm="ngForm"
+      (ngSubmit)="login()"
+      autocomplete="off"
+    >
+      <input
+        name="username"
+        [(ngModel)]="model.username"
+        class="form-control me-2"
+        type="text"
+        placeholder="Kullanıcı Adı"
+      />
+      <input
+        class="form-control me-2"
+        name="password"
+        [(ngModel)]="model.password"
+        type="password"
+        placeholder="Şifre"
+      />
+      <button class="btn btn-outline-success" type="submit">Giriş</button>
+    </form>
+  </div>
+</nav>
