@@ -1,2 +1,5 @@
 /* Importing Bootstrap SCSS file. */
+
+@import "bootswatch/dist/quartz/_variables.scss";
 @import "bootstrap/scss/bootstrap";
+@import "bootswatch/dist/quartz/_bootswatch.scss";
