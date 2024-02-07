@@ -12,7 +12,7 @@ export const authGuard: CanActivateFn = (route, state) => {
     map((user) => {
       if (user) return true;
       else {
-        toastr.error('İzniniz yok.');
+        /*         toastr.error('İzniniz yok.'); */
         return false;
       }
     })
