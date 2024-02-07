@@ -17,6 +17,8 @@ import {
 import { errorInterceptor } from './_interceptors/error.interceptor';
 import { jwtInterceptor } from './_interceptors/jwt.interceptor';
 import { GALLERY_CONFIG, GalleryConfig } from 'ng-gallery';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { loadingInterceptor } from './_interceptors/loading.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -24,7 +26,7 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(),
     provideHttpClient(
       withFetch(),
-      withInterceptors([errorInterceptor, jwtInterceptor])
+      withInterceptors([errorInterceptor, jwtInterceptor, loadingInterceptor])
     ),
     provideToastr({ positionClass: 'toast-bottom-right' }),
     provideAnimations(),
@@ -35,5 +37,6 @@ export const appConfig: ApplicationConfig = {
         imageSize: 'cover',
       } as GalleryConfig,
     },
+    provideAnimationsAsync(),
   ],
 };

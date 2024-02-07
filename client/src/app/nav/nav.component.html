@@ -38,7 +38,9 @@
         >Hoşgeldin {{ user.username | titlecase }}</a
       >
       <div ngbDropdownMenu class="dropdown-menu">
-        <a ngbDropdownItem href="" class="dropdown-item">Profili Düzenle</a>
+        <a ngbDropdownItem class="dropdown-item" routerLink="/member/edit"
+          >Profili Düzenle</a
+        >
         <a ngbDropdownItem href="" class="dropdown-item" (click)="logout()"
           >Çıkış</a
         >

@@ -1,0 +1,104 @@
+<div class="row" *ngIf="member">
+  <div class="col-4">
+    <h1>Profiliniz</h1>
+  </div>
+  <div class="col-8">
+    <div class="alert alert-info p-2" role="alert" *ngIf="editForm.dirty">
+      <strong>Uyarı: </strong>Profilinizde değişiklik yaptınız. Kaydedilmeyen
+      değişiklikler kaybolacaktır.
+    </div>
+  </div>
+  <div class="col-4">
+    <div class="card">
+      <img
+        src="{{ member.photoUrl || './assets/user.png' }}"
+        alt="{{ member.knownAs }}"
+        class="card-img-top img-thumbnail"
+      />
+      <div class="card-body">
+        <div>
+          <strong>Konum:</strong>
+          <p>{{ member.city }}, {{ member.country }}</p>
+        </div>
+        <div>
+          <strong>Yaş:</strong>
+          <p>{{ member.age }}</p>
+        </div>
+        <div>
+          <strong>Son görülme:</strong>
+          <p>{{ member.lastActive }}</p>
+        </div>
+        <div>
+          <strong>Şu tarihten itibaren üye:</strong>
+          <p>{{ member.created }}</p>
+        </div>
+      </div>
+      <div class="card-footer">
+        <button
+          class="btn btn-success col-12"
+          form="editForm"
+          [disabled]="!editForm.dirty"
+        >
+          Kaydet
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="col-8 pb-2">
+    <form #editForm="ngForm" id="editForm" (ngSubmit)="updateMember()">
+      <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+        <li [ngbNavItem]="1">
+          <button ngbNavLink>{{ member.knownAs }} Hakkında</button>
+          <ng-template ngbNavContent>
+            <h4 class="mt-2">Açıklama</h4>
+            <textarea
+              class="form-control"
+              [(ngModel)]="member.introduction"
+              name="introduction"
+              rows="6"
+            ></textarea>
+            <h4 class="mt-2">Ne istiyor?</h4>
+            <textarea
+              class="form-control"
+              [(ngModel)]="member.lookingFor"
+              name="lookingFor"
+              rows="6"
+            ></textarea>
+            <h4 class="mt-2">Hobileri</h4>
+            <textarea
+              class="form-control"
+              [(ngModel)]="member.interests"
+              name="interests"
+              rows="6"
+            ></textarea>
+            <h4 class="mt-2">Konum Bilgileri:</h4>
+            <div class="d-flex flex-row align-item-center">
+              <label for="city">Şehir: </label>
+              <input
+                type="text"
+                [(ngModel)]="member.city"
+                name="city"
+                class="form-control mx-2"
+              />
+              <label for="country">Ülke: </label>
+              <input
+                type="text"
+                [(ngModel)]="member.country"
+                name="country"
+                class="form-control mx-2"
+              />
+            </div>
+          </ng-template>
+        </li>
+        <li [ngbNavItem]="2">
+          <button ngbNavLink>Fotoğraları Düzenle</button>
+          <ng-template ngbNavContent>
+            <p>Photo edit will go here</p>
+          </ng-template>
+        </li>
+      </ul>
+    </form>
+
+    <div [ngbNavOutlet]="nav" class="mt-2"></div>
+  </div>
+</div>
