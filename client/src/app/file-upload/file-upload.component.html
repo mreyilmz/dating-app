@@ -1,0 +1,46 @@
+<div class="row mb-3" *ngIf="member">
+  <div class="col-2 mb-1" *ngFor="let photo of member.photos">
+    <img src="{{ photo.url }}" alt="photo of user" class="img-thumbnail mb-1" />
+    <div class="text-center">
+      <button
+        class="btn btn-sm"
+        [disabled]="photo.isMain"
+        (click)="setMainPhoto(photo)"
+        [ngClass]="photo.isMain ? 'btn-success active' : 'btn-outline-success'"
+      >
+        Main
+      </button>
+      <button
+        class="btn btn-sm btn-danger"
+        [disabled]="photo.isMain"
+        (click)="deletePhoto(photo.id)"
+      >
+        <i class="fa fa-trash"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<h2>Single File Upload</h2>
+
+<input type="file" class="file-input" (change)="onChange($event)" #fileUpload />
+
+<div *ngIf="file">
+  <section class="file-info">
+    File details:
+    <ul>
+      <li>Name: {{ file.name }}</li>
+      <li>Type: {{ file.type }}</li>
+      <li>Size: {{ file.size }} bytes</li>
+    </ul>
+  </section>
+
+  <button (click)="onUpload()">Upload the file</button>
+
+  <section [ngSwitch]="status">
+    <p *ngSwitchCase="'uploading'">⏳ Uploading...</p>
+    <p *ngSwitchCase="'success'">✅ Done!</p>
+    <p *ngSwitchCase="'fail'">❌ Error!</p>
+    <p *ngSwitchDefault>😶 Waiting to upload...</p>
+  </section>
+</div>

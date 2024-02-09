@@ -7,6 +7,7 @@ import { User } from './_models/user';
 import { HomeComponent } from './home/home.component';
 import { BusyService } from './_services/busy.service';
 import { SpinnerComponent } from './spinner/spinner.component';
+import { FileUploadComponent } from './file-upload/file-upload.component';
 
 @Component({
   selector: 'app-root',

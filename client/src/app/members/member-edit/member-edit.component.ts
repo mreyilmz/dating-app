@@ -9,6 +9,7 @@ import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { GalleryModule } from 'ng-gallery';
 import { FormsModule, NgForm, ReactiveFormsModule } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { FileUploadComponent } from '../../file-upload/file-upload.component';
 
 @Component({
   selector: 'app-member-edit',
@@ -19,6 +20,7 @@ import { ToastrService } from 'ngx-toastr';
     GalleryModule,
     FormsModule,
     ReactiveFormsModule,
+    FileUploadComponent,
   ],
   templateUrl: './member-edit.component.html',
   styleUrl: './member-edit.component.scss',

@@ -93,7 +93,7 @@
         <li [ngbNavItem]="2">
           <button ngbNavLink>Fotoğraları Düzenle</button>
           <ng-template ngbNavContent>
-            <p>Photo edit will go here</p>
+            <app-file-upload [member]="member"></app-file-upload>
           </ng-template>
         </li>
       </ul>

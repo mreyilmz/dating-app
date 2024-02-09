@@ -42,6 +42,14 @@ export class MembersService {
     );
   }
 
+  setMainPhoto(photoId: number) {
+    return this.http.put(this.baseUrl + 'users/set-main-photo' + photoId, {});
+  }
+
+  deletePhoto(photoId: number) {
+    return this.http.delete(this.baseUrl + 'users/delete-photo/' + photoId);
+  }
+
   //---- Instead of this method, we used jwt interceptor to handle getting token from user.
   // getHttpOptions() {
   //   const userString = localStorage.getItem('user');

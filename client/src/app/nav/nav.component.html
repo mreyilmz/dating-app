@@ -32,9 +32,10 @@
       class="dropdown"
       *ngIf="accountService.currentUser$ | async as user"
     >
+      <img src="{{ user.photoUrl || '.assets./user.png' }}" alt="user photo" />
       <a
         ngbDropdownToggle
-        class="dropdown-toggle text-light text-decoration-none"
+        class="dropdown-toggle text-light text-decoration-none ms-2"
         >Hoşgeldin {{ user.username | titlecase }}</a
       >
       <div ngbDropdownMenu class="dropdown-menu">

@@ -20,9 +20,7 @@ export class AccountService {
     return this.http.post<User>(this.baseUrl + 'account/login', model).pipe(
       map((response: User) => {
         const user = response;
-        if (user) localStorage.setItem('user', JSON.stringify(user));
-        // So also inside the account service, as well as setting the information inside local storage, we're also going to update our current user source with the user if we successfully log in. So following the setting of the item in local storage, we're going to say let's not current use a source. Then we're going to say what its next value is and we're going to pass in that user.
-        this.currentUserSource.next(user);
+        if (user) this.setCurrentUser(user);
       })
     );
   }
@@ -30,16 +28,15 @@ export class AccountService {
   register(model: any) {
     return this.http.post<User>(this.baseUrl + 'account/register', model).pipe(
       map((user) => {
-        if (user) {
-          localStorage.setItem('user', JSON.stringify(user));
-          this.currentUserSource.next(user);
-        }
+        if (user) this.setCurrentUser(user);
         // return user; "user" dönmemize gerek olmadığı için kaldırdık
       })
     );
   }
 
   setCurrentUser(user: User) {
+    localStorage.setItem('user', JSON.stringify(user));
+    // So also inside the account service, as well as setting the information inside local storage, we're also going to update our current user source with the user if we successfully log in. So following the setting of the item in local storage, we're going to say let's not current use a source. Then we're going to say what its next value is and we're going to pass in that user.
     this.currentUserSource.next(user);
   }
 
