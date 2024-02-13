@@ -8,6 +8,12 @@ public static class ClaimsPrincipalExtensions
     public static string GetUsername(this ClaimsPrincipal user)
     {
 
-        return user.FindFirst(ClaimTypes.NameIdentifier)?.Value; // Token Service içinde User adında bir token oluşturmuştuk. NameIdentifier olarak da username kullanmıştık.
+        return user.FindFirst(ClaimTypes.Name)?.Value; // Token Service içinde User adında bir token oluşturmuştuk. UniqueName olarak da username kullanmıştık.
+    }
+
+    public static string GetUserId(this ClaimsPrincipal user)
+    {
+
+        return user.FindFirst(ClaimTypes.NameIdentifier)?.Value; // Token Service içinde User adında bir token oluşturmuştuk. UniqueName olarak da username kullanmıştık.
     }
 }

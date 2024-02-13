@@ -3,6 +3,7 @@
 using API.Data;
 using API.DTOs;
 using API.Entities;
+using API.Helpers;
 using API.Repositories.Abstracts;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
@@ -29,11 +30,26 @@ public class UserRepository : IUserRepository
             .SingleOrDefaultAsync();
     }
 
-    public async Task<IEnumerable<MemberDto>> GetMembersAsync()
+    public async Task<PagedList<MemberDto>> GetMembersAsync(UserParams userParams)
     {
-        return await _dataContext.Users
+        // Because this is a list of something we're returning, and not a list that we're going to work on inside our UsersController, we can also make Entity Framework a tiny bit more efficient and we can specify "AsNoTracking".
+        var minDob = DateOnly.FromDateTime(DateTime.Today.AddYears(-userParams.MaxAge - 1));
+        var maxDob = DateOnly.FromDateTime(DateTime.Today.AddYears(-userParams.MinAge));
+
+        var query = _dataContext.Users
+            .Where(u => u.UserName != userParams.CurrentUserName)
+            .Where(u => u.Gender == userParams.Gender)
+            .Where(u => u.DateOfBirth >= minDob && u.DateOfBirth <= maxDob)
+            .OrderByDescending(u =>
+                userParams.OrderBy == "created" ? u.Created : u.LastActive
+            )
             .ProjectTo<MemberDto>(_mapper.ConfigurationProvider)
-            .ToListAsync();
+            .AsNoTracking();
+
+        return await PagedList<MemberDto>.CreateAsync(query, userParams.PageNumber, userParams.PageSize);
+        // return await _dataContext.Users
+        //     .ProjectTo<MemberDto>(_mapper.ConfigurationProvider)
+        //     .ToListAsync();
     }
 
     public async Task<AppUser> GetUserByIdAsync(int id)

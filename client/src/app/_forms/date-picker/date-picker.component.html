@@ -1,0 +1,27 @@
+<form class="row row-cols-sm-auto">
+  <div class="col-12">
+    <div class="input-group">
+      <input
+        class="form-control"
+        placeholder="{{ label }}"
+        [class.is-invalid]="control.invalid && control.touched"
+        [formControl]="control"
+        name="dp"
+        ngbDatepicker
+        #d="ngbDatepicker"
+      />
+
+      <button
+        class="btn btn-outline-secondary bi bi-calendar3"
+        (click)="d.toggle()"
+        type="button"
+      ></button>
+
+      <div *ngIf="control.errors?.['required']" class="invalid-feedback">
+        Lütfen {{ label }} girin
+      </div>
+    </div>
+  </div>
+</form>
+
+<hr />

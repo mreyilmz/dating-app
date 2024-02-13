@@ -36,8 +36,6 @@ export class FileUploadComponent {
     });
   }
 
-  ngOnInit(): void {}
-
   // On file Select
   onChange(event: any) {
     const file: File = event.target.files[0];

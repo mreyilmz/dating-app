@@ -4,5 +4,19 @@
 @import "bootstrap/scss/bootstrap";
 @import "bootswatch/dist/quartz/_bootswatch.scss";
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.ngb-dp-header {
+  background-color: transparent !important;
+}
+
+div.ngb-dp-day:hover {
+  color: red !important;
+}

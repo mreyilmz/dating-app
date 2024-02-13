@@ -10,6 +10,7 @@ import { GalleryModule } from 'ng-gallery';
 import { FormsModule, NgForm, ReactiveFormsModule } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { FileUploadComponent } from '../../file-upload/file-upload.component';
+import { TimeAgoPipe } from '../../_pipes/time-ago.pipe';
 
 @Component({
   selector: 'app-member-edit',
@@ -21,6 +22,7 @@ import { FileUploadComponent } from '../../file-upload/file-upload.component';
     FormsModule,
     ReactiveFormsModule,
     FileUploadComponent,
+    TimeAgoPipe,
   ],
   templateUrl: './member-edit.component.html',
   styleUrl: './member-edit.component.scss',

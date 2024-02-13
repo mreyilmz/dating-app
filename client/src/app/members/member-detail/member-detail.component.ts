@@ -5,11 +5,12 @@ import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { GalleryItem, GalleryModule, ImageItem } from 'ng-gallery';
+import { TimeAgoPipe } from '../../_pipes/time-ago.pipe';
 
 @Component({
   selector: 'app-member-detail',
   standalone: true,
-  imports: [CommonModule, NgbNavModule, GalleryModule],
+  imports: [CommonModule, NgbNavModule, GalleryModule, TimeAgoPipe],
   templateUrl: './member-detail.component.html',
   styleUrl: './member-detail.component.scss',
 })

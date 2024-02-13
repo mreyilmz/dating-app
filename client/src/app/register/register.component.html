@@ -1,3 +1,174 @@
+<form
+  [formGroup]="registerForm"
+  (ngSubmit)="registerForm.valid && register()"
+  autocomplete="off"
+>
+  <h2 class="text-center text-primary">Kayıt</h2>
+  <hr />
+
+  <div class="mb-3">
+    <label class="form-check-label">
+      <input
+        class="form-check-input"
+        type="radio"
+        value="male"
+        formControlName="gender"
+      />
+      Erkek
+    </label>
+    <label class="form-check-label">
+      <input
+        class="form-check-input ms-3"
+        type="radio"
+        value="female"
+        formControlName="gender"
+      />
+      Kadın
+    </label>
+  </div>
+
+  <app-text-input
+    [formControl]="$any(registerForm.controls['username'])"
+    [label]="'Kullanıcı adı'"
+  ></app-text-input>
+  <app-text-input
+    [formControl]="$any(registerForm.controls['knownAs'])"
+    [label]="'Lakap'"
+  ></app-text-input>
+  <app-date-picker
+    [formControl]="$any(registerForm.controls['dateOfBirth'])"
+    [label]="'Doğum Tarihi'"
+  ></app-date-picker>
+  <app-text-input
+    [formControl]="$any(registerForm.controls['city'])"
+    [label]="'Şehir'"
+  ></app-text-input>
+  <app-text-input
+    [formControl]="$any(registerForm.controls['country'])"
+    [label]="'Ülke'"
+  ></app-text-input>
+  <app-text-input
+    [formControl]="$any(registerForm.controls['password'])"
+    [label]="'Şifre'"
+    [type]="'password'"
+  ></app-text-input>
+  <app-text-input
+    [formControl]="$any(registerForm.controls['confirmPassword'])"
+    [label]="'Şifre tekrarı'"
+    [type]="'password'"
+  ></app-text-input>
+
+  <div class="row" *ngIf="validationErrors">
+    <ul class="text-danger">
+      <li *ngFor="let error of validationErrors">{{ error }}</li>
+    </ul>
+  </div>
+
+  <div class="text-center mb-3">
+    <button
+      [disabled]="!registerForm.valid"
+      class="btn btn-success me-2"
+      type="submit"
+    >
+      Kayıt ol
+    </button>
+    <button class="btn btn-default" type="button" (click)="cancel()">
+      İptal
+    </button>
+  </div>
+</form>
+
+<!-- ----------------------------------------------------------------------------------------------- -->
+<!-- ReactiveForms ile kullandığımız durum -->
+<!-- 
+<form [formGroup]="registerForm" (ngSubmit)="register()" autocomplete="off">
+  <h2 class="text-center text-primary">Kayıt</h2>
+  <hr />
+  <div class="mb-3">
+    <input
+      type="text"
+      [class.is-invalid]="
+        registerForm.get('username')?.errors &&
+        registerForm.get('username')?.touched
+      "
+      class="form-control"
+      formControlName="username"
+      placeholder="Kullanıcı adı"
+    />
+    invalid-feedback boostrap class'ı. Bootstrap css takes care of this logic and will only display the feedback if the form input has an error. HTML5 forms are able to validate without the need for javascript.
+    <div class="invalid-feedback">Lütfen kullanıcı adınızı girin</div>
+  </div>
+
+  <div class="mb-3">
+    <input
+      type="password"
+      [class.is-invalid]="
+        registerForm.get('password')?.errors &&
+        registerForm.get('password')?.touched
+      "
+      class="form-control"
+      formControlName="password"
+      placeholder="Şifre"
+    />
+    <div
+      class="invalid-feedback"
+      *ngIf="registerForm.get('password')?.hasError('required')"
+    >
+      Lütfen şifrenizi girin
+    </div>
+    <div
+      class="invalid-feedback"
+      *ngIf="registerForm.get('password')?.hasError('minlength')"
+    >
+      Şifre en az 4 karakterden oluşmalı
+    </div>
+    <div
+      class="invalid-feedback"
+      *ngIf="registerForm.get('password')?.hasError('maxlength')"
+    >
+      Şifre en fazla 8 karakter olabilir.
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <input
+      type="password"
+      [class.is-invalid]="
+        registerForm.get('confirmPassword')?.errors &&
+        registerForm.get('confirmPassword')?.touched
+      "
+      class="form-control"
+      formControlName="confirmPassword"
+      placeholder="Şifre tekrar"
+    />
+    <div
+      class="invalid-feedback"
+      *ngIf="registerForm.get('confirmPassword')?.hasError('required')"
+    >
+      Lütfen şifrenizi tekrar girin
+    </div>
+    <div
+      class="invalid-feedback"
+      *ngIf="registerForm.get('confirmPassword')?.hasError('notMatching')"
+    >
+      Şifreniz ile aynı olmalı
+    </div>
+  </div>
+
+  <div class="text-center">
+    <button class="btn btn-success me-2" type="submit">Kayıt ol</button>
+    <button class="btn btn-default" type="button" (click)="cancel()">
+      İptal
+    </button>
+  </div>
+</form>
+
+-->
+
+<!-- ------------------------------------------------------------------------------------------------------------ -->
+
+<!-- Template Forms ile kullandığımız durum -->
+<!-- 
 <form #registerForm="ngForm" (ngSubmit)="register()" autocomplete="off">
   <h2 class="text-center text-primary">Kayıt</h2>
   <hr />
@@ -28,3 +199,4 @@
     </button>
   </div>
 </form>
+ -->
