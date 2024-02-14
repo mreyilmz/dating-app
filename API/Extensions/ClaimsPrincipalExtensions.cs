@@ -11,9 +11,9 @@ public static class ClaimsPrincipalExtensions
         return user.FindFirst(ClaimTypes.Name)?.Value; // Token Service içinde User adında bir token oluşturmuştuk. UniqueName olarak da username kullanmıştık.
     }
 
-    public static string GetUserId(this ClaimsPrincipal user)
+    public static int GetUserId(this ClaimsPrincipal user)
     {
 
-        return user.FindFirst(ClaimTypes.NameIdentifier)?.Value; // Token Service içinde User adında bir token oluşturmuştuk. UniqueName olarak da username kullanmıştık.
+        return int.Parse(user.FindFirst(ClaimTypes.NameIdentifier)?.Value); // Token Service içinde User adında bir token oluşturmuştuk. UniqueName olarak da username kullanmıştık.
     }
 }
