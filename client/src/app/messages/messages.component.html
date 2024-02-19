@@ -1,1 +1,116 @@
-<p>messages works!</p>
+<div class="mb-4 d-flex">
+  <div class="btn-group" name="container">
+    <div class="btn-group">
+      <input
+        type="radio"
+        class="btn-check"
+        name="btnradio"
+        id="btnradio1"
+        (click)="loadMessages('Unread')"
+        autocomplete="off"
+        checked
+      />
+      <label class="btn btn-outline-primary" for="btnradio1"
+        ><i class="fa fa-envelope"></i> Okunmayan</label
+      >
+
+      <input
+        type="radio"
+        class="btn-check"
+        name="btnradio"
+        id="btnradio2"
+        autocomplete="off"
+        (click)="loadMessages('Inbox')"
+      />
+      <label class="btn btn-outline-primary" for="btnradio2"
+        ><i class="fa fa-envelope-open"></i> Gelen</label
+      >
+
+      <input
+        type="radio"
+        class="btn-check"
+        name="btnradio"
+        id="btnradio3"
+        autocomplete="off"
+        (click)="loadMessages('Outbox')"
+      />
+      <label class="btn btn-outline-primary" for="btnradio3"
+        ><i class="fa fa-paper-plane"></i> Giden</label
+      >
+    </div>
+  </div>
+</div>
+
+<div class="row" *ngIf="!messages || messages?.length === 0">
+  <h3>Okunmayan mesajınız bulunmuyor.</h3>
+</div>
+
+<div class="row" *ngIf="messages && messages?.length !== 0">
+  <table class="table table-hover" style="cursor: pointer">
+    <thead>
+      <tr>
+        <th style="width: 40%">Mesaj</th>
+        <th style="width: 20%">Kimden / Kime</th>
+        <th style="width: 20%">Gönderilen / Alınan</th>
+        <th style="width: 20%"></th>
+      </tr>
+    </thead>
+    <tbody class="align-middle">
+      <tr
+        [hidden]="loading"
+        *ngFor="let message of messages"
+        routerLink="{{
+          container === 'Outbox'
+            ? '/members/' + message.recipientUsername
+            : '/members/' + message.senderUsername
+        }}"
+        [queryParams]="{ tab: 4 }"
+      >
+        <td>{{ message.content }}</td>
+        <td>
+          <div *ngIf="container === 'Outbox'">
+            <img
+              class="img-circle rounded-circle me-2"
+              src="{{ message.recipientPhotoUrl || './assets/user.png' }}"
+              alt="recipient photo"
+            />
+            <strong>{{ message.recipientUsername | titlecase }}</strong>
+          </div>
+          <div *ngIf="container !== 'Outbox'">
+            <img
+              class="img-circle rounded-circle me-2"
+              src="{{ message.senderPhotoUrl || './assets/user.png' }}"
+              alt="recipient photo"
+            />
+            <strong>{{ message.senderUsername | titlecase }}</strong>
+          </div>
+        </td>
+        <td>{{ message.messageSent | timeAgo }}</td>
+        <td>
+          <button
+            (click)="$event.stopPropagation()"
+            (click)="deleteMessage(message.id)"
+            class="btn btn-danger"
+          >
+            Sil
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div
+  class="d-flex justify-content-center"
+  *ngIf="!loading && pagination && messages && messages.length > 0"
+>
+  <ngb-pagination
+    [collectionSize]="pagination.totalItems"
+    size="lg"
+    [boundaryLinks]="true"
+    [pageSize]="pagination.itemsPerPage"
+    [maxSize]="10"
+    [(page)]="pagination.currentPage"
+    (pageChange)="pageChange($event)"
+  />
+</div>

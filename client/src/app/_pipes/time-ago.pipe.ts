@@ -3,11 +3,11 @@ import { Pipe, PipeTransform } from '@angular/core';
 @Pipe({
   standalone: true,
   name: 'timeAgo',
-  pure: true,
+  pure: false,
 })
 export class TimeAgoPipe implements PipeTransform {
-  transform(value: Date): string {
-    if (!value) return '';
+  transform(value: Date | string): string {
+    if (!value) return 'şimdi';
 
     const seconds = Math.floor((+new Date() - +new Date(value)) / 1000);
 
