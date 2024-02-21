@@ -15,13 +15,18 @@
           >
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="lists" routerLinkActive="active"
+          <a class="nav-link" routerLink="/lists" routerLinkActive="active"
             >Listeler</a
           >
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="messages" routerLinkActive="active"
+          <a class="nav-link" routerLink="/messages" routerLinkActive="active"
             >Mesajlar</a
+          >
+        </li>
+        <li *appHasRole="['Admin', 'Moderator']" class="nav-item">
+          <a class="nav-link" routerLink="/admin" routerLinkActive="active"
+            >Admin</a
           >
         </li>
       </ng-container>

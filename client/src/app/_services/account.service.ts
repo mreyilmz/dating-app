@@ -35,6 +35,9 @@ export class AccountService {
   }
 
   setCurrentUser(user: User) {
+    user.roles = [];
+    const roles = this.getDecodedToken(user.token).role;
+    Array.isArray(roles) ? (user.roles = roles) : user.roles.push(roles);
     localStorage.setItem('user', JSON.stringify(user));
     // So also inside the account service, as well as setting the information inside local storage, we're also going to update our current user source with the user if we successfully log in. So following the setting of the item in local storage, we're going to say let's not current use a source. Then we're going to say what its next value is and we're going to pass in that user.
     this.currentUserSource.next(user);
@@ -43,5 +46,9 @@ export class AccountService {
   logout() {
     localStorage.removeItem('user');
     this.currentUserSource.next(null);
+  }
+
+  getDecodedToken(token: string) {
+    return JSON.parse(atob(token.split('.')[1]));
   }
 }

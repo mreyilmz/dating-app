@@ -1,0 +1,19 @@
+<h2>Admin Panel</h2>
+<div>
+  <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+    <li *appHasRole="['Admin']" [ngbNavItem]="1">
+      <button ngbNavLink>Kullanıcı Yönetimi</button>
+      <ng-template ngbNavContent>
+        <app-user-management></app-user-management>
+      </ng-template>
+    </li>
+    <li *appHasRole="['Admin', 'Moderator']" [ngbNavItem]="2">
+      <button ngbNavLink>Fotoğraf Yönetimi</button>
+      <ng-template ngbNavContent>
+        <app-photo-management></app-photo-management>
+      </ng-template>
+    </li>
+  </ul>
+
+  <div [ngbNavOutlet]="nav" class="mt-2"></div>
+</div>
