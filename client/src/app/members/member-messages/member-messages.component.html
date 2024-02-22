@@ -1,11 +1,14 @@
 <div class="card">
   <div class="card-body">
-    <div *ngIf="messages.length === 0">
+    <div *ngIf="(messageService.messageThread$ | async)?.length === 0">
       Henüz mesaj yok. Aşağıdaki kutuyu kullanarak mesaj atabilirsiniz.
     </div>
 
-    <ul *ngIf="messages.length > 0" class="chat">
-      <li *ngFor="let message of messages">
+    <ul
+      *ngIf="(messageService.messageThread$ | async)!.length > 0"
+      class="chat"
+    >
+      <li *ngFor="let message of messageService.messageThread$ | async">
         <div>
           <span class="chat-img float-end">
             <img
@@ -18,7 +21,7 @@
             <div class="header">
               <small class="text-muted">
                 <span class="fa fa-clock-o">{{
-                  message.messageSent + "Z" | timeAgo
+                  message.messageSent | timeAgo
                 }}</span>
                 <span
                   class="text-danger"
@@ -32,7 +35,7 @@
                   *ngIf="
                     message.dateRead && message.senderUsername !== username
                   "
-                  >(okundu {{ message.dateRead + "Z" | timeAgo }})</span
+                  >(okundu {{ message.dateRead | timeAgo }})</span
                 >
               </small>
             </div>

@@ -54,7 +54,7 @@
     </div>
 
     <form
-      *ngIf="!(accountService.currentUser$ | async) as user"
+      *ngIf="!(accountService.currentUser$ | async)"
       class="d-flex"
       #loginForm="ngForm"
       (ngSubmit)="login()"

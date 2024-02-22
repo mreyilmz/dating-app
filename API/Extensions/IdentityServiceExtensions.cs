@@ -31,6 +31,23 @@ namespace API.Extensions
                     ValidateIssuer = false,
                     ValidateAudience = false
                 };
+
+                // This code snippet configures the JwtBearerEvents for the JWT bearer authentication middleware in ASP.NET Core. Specifically, it handles the OnMessageReceived event, which is triggered when a request is received by the server.
+                // Overall, this code is used to extract the access_token from the query parameter and set it as the token for authentication, specifically for requests to SignalR hubs.
+                options.Events = new JwtBearerEvents
+                {
+                    // OnMessageReceived: This event is triggered before the token is validated. It allows you to inspect the incoming request and modify the token if necessary.
+                    OnMessageReceived = context =>
+                    {
+                        var accessToken = context.Request.Query["access_token"];
+                        var path = context.HttpContext.Request.Path;
+                        if (!string.IsNullOrEmpty(accessToken) && path.StartsWithSegments("/hubs"))
+                        {
+                            context.Token = accessToken;
+                        }
+                        return Task.CompletedTask;
+                    }
+                };
             });
 
             services.AddAuthorization(opt =>

@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { MembersService } from '../../_services/members.service';
 import { ToastrService } from 'ngx-toastr';
+import { PresenceService } from '../../_services/presence.service';
 
 @Component({
   selector: 'app-member-card',
@@ -17,7 +18,8 @@ export class MemberCardComponent {
 
   constructor(
     private memberSerivce: MembersService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    public presenceService: PresenceService
   ) {}
 
   addLike(member: Member) {

@@ -24,6 +24,7 @@ import { HasRoleDirective } from '../_directives/has-role.directive';
   ],
   templateUrl: './nav.component.html',
   styleUrl: './nav.component.scss',
+  host: { ngSkipHydration: 'true' },
 })
 export class NavComponent implements OnInit {
   model: any = {};
