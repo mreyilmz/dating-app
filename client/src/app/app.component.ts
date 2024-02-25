@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, afterNextRender } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { NavComponent } from './nav/nav.component';
@@ -23,12 +23,18 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
   styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit {
+  localStorage: Storage | undefined;
   title = 'client';
 
   constructor(
     private accountService: AccountService,
     private busyService: BusyService
-  ) {}
+  ) {
+    afterNextRender(() => {
+      this.localStorage = localStorage;
+      this.setCurrentUser();
+    });
+  }
 
   ngOnInit(): void {
     this.setCurrentUser();
@@ -39,7 +45,7 @@ export class AppComponent implements OnInit {
   }
 
   setCurrentUser() {
-    const userString = localStorage.getItem('user');
+    const userString = this.localStorage?.getItem('user');
     if (!userString) return;
     const user: User = JSON.parse(userString);
     this.accountService.setCurrentUser(user);

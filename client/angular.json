@@ -17,7 +17,10 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/client",
+            "outputPath": {
+              "base": "",
+              "browser": ""
+            },
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": ["zone.js"],
@@ -43,8 +46,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "1mb",
+                  "maximumError": "2mb"
                 },
                 {
                   "type": "anyComponentStyle",

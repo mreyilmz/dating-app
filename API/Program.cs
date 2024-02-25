@@ -27,18 +27,23 @@ app.UseMiddleware<ExceptionMiddleware>();
 
 
 // From SignalR docs: "Credentials must be allowed in order for cookie-based sticky sessions to work correctly. They must be enabled even when authentication isn't used."
+app.UseHttpsRedirection();
+
+app.UseDefaultFiles();
+app.UseStaticFiles();
+
+
 app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins("https://localhost:4200"));
 
 app.UseAuthentication();
-
-app.UseHttpsRedirection();
-
 app.UseAuthorization();
 
-app.MapControllers();
 
+
+app.MapControllers();
 app.MapHub<PresenceHub>("hubs/presence");
 app.MapHub<MessageHub>("hubs/message");
+app.MapFallbackToController("Index", "Fallback");
 
 // This is going to give us access to all of the services that we have inside this program class.
 using var scope = app.Services.CreateScope();
