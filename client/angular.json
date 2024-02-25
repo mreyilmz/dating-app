@@ -19,7 +19,7 @@
           "options": {
             "outputPath": {
               "base": "../API/wwwwroot",
-              "browser": "a"
+              "browser": ""
             },
             "index": "src/index.html",
             "browser": "src/main.ts",
